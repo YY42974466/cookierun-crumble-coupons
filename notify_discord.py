@@ -152,9 +152,9 @@ def send_batches(webhook_url: str, changes: list[dict[str, Any]]) -> None:
     for i in range(0, len(embeds), 8):
         payload = {
             "username": "CookieRun Crumble 禮包碼",
-            "content": "🍪 **禮包碼資料有更新！**",
+            "content": "@everyone 🍪 **禮包碼資料有更新！**",
             "embeds": embeds[i:i+8],
-            "allowed_mentions": {"parse": []},
+            "allowed_mentions": {"parse": ["everyone"]},
         }
         r = requests.post(webhook_url, json=payload, timeout=20)
         if r.status_code not in (200, 204):
