@@ -17,7 +17,7 @@ BASE = Path(__file__).resolve().parent
 DATA_FILE = BASE / "data" / "codes.json"
 KST = ZoneInfo("Asia/Seoul")
 
-HEADERS = {"User-Agent": "Mozilla/5.0 CookieRun-Crumble-CouponBook/13.0"}
+HEADERS = {"User-Agent": "Mozilla/5.0 CookieRun-Crumble-CouponBook/14.0"}
 CODE_RE = re.compile(r"\bCOOKIERUN[A-Z0-9_-]{5,}\b")
 
 OFFICIAL = [
@@ -61,10 +61,21 @@ def now_iso() -> str:
     return datetime.now().astimezone().isoformat(timespec="seconds")
 
 def parse_date(s: str):
-    s = re.sub(r"(st|nd|rd|th)\b", "", clean(s), flags=re.I)
+    s = clean(s)
+
+    # Only strip ordinal suffixes attached to digits: 1st, 2nd, 3rd, 4th.
+    # This must NOT touch words such as August or timezone text such as KST.
+    s = re.sub(r"(?<=\d)(st|nd|rd|th)\b", "", s, flags=re.I)
+
+    # Handle KST explicitly.
+    has_kst = bool(re.search(r"\bKST\b", s, flags=re.I))
+    s = re.sub(r"\bKST\b", "", s, flags=re.I).strip()
+
     dt = date_parser.parse(s, fuzzy=True)
-    if dt.tzinfo is None:
+
+    if has_kst or dt.tzinfo is None:
         dt = dt.replace(tzinfo=KST)
+
     return dt
 
 def source_lines(url: str) -> list[str]:
@@ -97,13 +108,25 @@ def split_eog_reward_blob(text: str) -> list[str]:
 
 def split_hub_reward_line(text: str):
     t = clean(text).replace("⧉", "")
-    # zh-Hant page may show quantities as 10,000個.
-    m = re.match(r"^(.+?)(\d[\d,]*)(?:\s*個)?$", t)
+
+    # zh-Hant may append 個 after the amount.
+    t = re.sub(r"\s*個$", "", t)
+
+    # The quantity is the FINAL numeric block.
+    # Examples:
+    #   크리스탈10,000 -> name=크리스탈 / amount=10,000
+    #   코인 1시간 자동 사냥 보상10 -> name keeps "1시간" / amount=10
+    m = re.search(r"(?<!\d)(\d{1,3}(?:,\d{3})+|\d+)$", t)
     if not m:
         return None
-    name = clean(m.group(1))
-    amount = m.group(2)
-    return format_reward(amount, name) if name else None
+
+    amount = m.group(1)
+    name = clean(t[:m.start()])
+
+    if not name:
+        return None
+
+    return format_reward(amount, name)
 
 def parse_hub_expiry(text: str):
     """Supports both Crumble Hub English and Traditional Chinese expiry labels."""
@@ -122,6 +145,27 @@ def parse_hub_expiry(text: str):
         return parse_date(en.group(1))
 
     return None
+
+def rewards_look_sane(rewards: list[str]) -> bool:
+    if not rewards:
+        return False
+
+    for reward in rewards:
+        r = clean(reward)
+        m = re.match(r"^\d[\d,]*\s+(?:個\s+)?(.+)$", r)
+        if not m:
+            return False
+
+        item_name = clean(m.group(1))
+        if len(item_name) < 2:
+            return False
+
+        # The item name must contain actual letters/characters,
+        # not just punctuation or numeric fragments such as "1,".
+        if not re.search(r"[A-Za-z\u3400-\u9fff\uac00-\ud7af]", item_name):
+            return False
+
+    return True
 
 def reward_language_score(rewards: list[str]) -> int:
     """
@@ -261,7 +305,7 @@ def merge(obs, old):
         announced = next((x.get("announced") for x in xs if x.get("announced")), oldrow.get("announced"))
         expiry = next((x.get("expiry") for x in xs if x.get("expiry")), oldrow.get("expires_at"))
 
-        reward_candidates = [x for x in xs if x.get("rewards")]
+        reward_candidates = [x for x in xs if x.get("rewards") and rewards_look_sane(x["rewards"])]
         best_rewards = oldrow.get("rewards", [])
         if reward_candidates:
             best = max(
