@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6f2e1e">
+<title>CookieRun: Crumble 禮包碼手冊</title>
+<style>
+:root{
+ --desk:#321812;--desk2:#55291a;--paper:#f3dfbf;--paper2:#ead0a7;--ink:#5c402d;
+ --brown:#6a3d2b;--red:#a53d35;--red2:#7e2d27;--line:#caa574;--cream:#fff2d5;
+ --green:#668d59;--shadow:0 18px 60px rgba(24,8,3,.32)
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;color:#442d20;
+ background:linear-gradient(135deg,var(--desk),var(--desk2) 55%,#25100d);overflow-x:hidden}
+.shell{width:min(1460px,calc(100% - 28px));margin:20px auto 46px;position:relative}
+.wiki-top{
+  position:relative;
+  min-height:146px;
+  margin:0 38px -18px;
+  padding:18px 28px 31px;
+  display:grid;
+  grid-template-columns:250px 1fr 250px;
+  align-items:center;
+  gap:22px;
+  border:4px solid #3c1912;
+  border-radius:34px 34px 10px 10px;
+  color:#ffe9c8;
+  background:
+    linear-gradient(115deg,rgba(255,225,188,.14),transparent 26%),
+    repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 14px,transparent 14px 31px),
+    linear-gradient(135deg,#5e2718,#9f4c26 52%,#6d2f1e);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.wiki-top:before{
+  content:"";position:absolute;left:0;right:0;bottom:17px;height:8px;
+  background:repeating-linear-gradient(90deg,#ae3c35 0 18px,#c14b42 18px 36px);
+  border-top:2px dashed rgba(255,220,185,.35);
+  border-bottom:2px solid #722820;
+}
+.wiki-top:after{
+  content:"";position:absolute;right:-80px;top:-78px;width:270px;height:150px;
+  border-radius:50%;background:rgba(255,193,122,.12);transform:rotate(-12deg)
+}
+.brand-block{position:relative;z-index:2;text-align:center;transform:rotate(-1deg)}
+.brand-cookie{
+  font-size:29px;font-weight:1000;line-height:.95;color:#ffca34;letter-spacing:-.05em;
+  text-shadow:
+    -3px -3px 0 #4a2215,3px -3px 0 #4a2215,-3px 3px 0 #4a2215,3px 3px 0 #4a2215,
+    0 5px 0 #7f361d
+}
+.brand-crumble{
+  margin-top:3px;font-size:22px;font-weight:1000;letter-spacing:.04em;color:#fff1cd;
+  text-shadow:-2px -2px 0 #4d281b,2px -2px 0 #4d281b,-2px 2px 0 #4d281b,2px 2px 0 #4d281b
+}
+.brand-sub{
+  display:inline-block;margin-top:7px;padding:4px 12px;border-radius:999px;
+  font-size:10px;font-weight:950;letter-spacing:.17em;color:#f4c987;background:#4b251a
+}
+.top-center{position:relative;z-index:2;text-align:center;display:flex;align-items:center;justify-content:center}
+
+
+
+.top-title{
+  display:inline-block;padding:9px 34px;border-radius:26px;
+  color:#fff1d6;font-size:25px;font-weight:950;
+  background:linear-gradient(#69432d,#4c3022);
+  box-shadow:inset 0 0 0 2px rgba(255,236,208,.12)
+}
+.redeem-search{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;
+  min-height:46px;padding:8px 12px;border-radius:24px;
+  color:#633a25;text-decoration:none;font-size:12px;font-weight:900;
+  background:linear-gradient(#fff1d5,#ecc995);
+  border:4px solid #693420;
+  box-shadow:inset 0 0 0 2px #fff8e7,0 4px 0 rgba(50,18,9,.18)
+}
+.redeem-search:hover{filter:brightness(1.04)}
+.redeem-search b{font-size:16px;color:#a1412d}
+.book{position:relative;min-height:720px;padding:77px 72px 45px 72px;border:4px solid #59291f;border-radius:28px 28px 18px 18px;
+ background:repeating-linear-gradient(0deg,transparent 0 27px,rgba(164,117,67,.08) 28px 29px),
+ repeating-linear-gradient(90deg,transparent 0 27px,rgba(164,117,67,.07) 28px 29px),var(--paper);box-shadow:var(--shadow)}
+.stitch{position:absolute;left:0;right:0;top:29px;height:42px;background:repeating-linear-gradient(45deg,#c24942 0 12px,#b43a36 12px 24px);
+ border-top:4px solid #92322e;border-bottom:4px solid #92322e}
+.stitch:after{content:"";position:absolute;left:0;right:0;top:17px;border-top:2px dashed rgba(255,225,194,.5)}
+.rings{position:absolute;right:-28px;top:100px;bottom:50px;width:60px}.ring{width:62px;height:22px;border-radius:18px;margin:37px 0;border:7px solid #ccb5ac;border-left-color:#76514b;border-right-color:#eee0da;background:#46302d}
+
+.main-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px}.content{min-width:0}
+.recipe{
+  display:block;
+  width:max-content;
+  max-width:calc(100% - 20px);
+  margin:0 auto 14px;
+  padding:10px 34px;
+  color:#fff1d7;
+  font-size:24px;
+  font-weight:950;
+  text-align:center;
+  background:linear-gradient(135deg,#6a422c,#4a3023);
+  border-radius:999px;
+  box-shadow:inset 0 0 0 2px rgba(255,238,211,.08)
+}
+.quote{padding:14px 18px;margin-bottom:16px;border:1px solid #c7a579;border-radius:10px;background:rgba(255,245,223,.48);font-weight:750;color:#6d5037}
+.status-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.status-card{padding:11px 13px;border:1px solid #cfac7b;border-radius:10px;background:rgba(255,247,228,.58)}
+.status-k{font-size:11px;color:#8b684b}.status-v{font-size:18px;font-weight:950;margin-top:3px}
+.filter-strip{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}.pill{border:2px solid #b58b5b;background:#f6e3c0;color:#6b4a2f;padding:8px 13px;border-radius:999px;font-weight:900;cursor:pointer}
+.pill.active{background:#a43d34;color:#fff4dc;border-color:#782b27}
+.coupon{position:relative;margin-bottom:10px;padding:13px 15px 12px 17px;border:2px solid #c4a071;border-radius:9px;background:rgba(255,244,218,.62)}
+.coupon:before{content:"";position:absolute;left:-8px;top:16px;width:13px;height:13px;border-radius:50%;background:#69985d;border:3px solid #f4dfbf;box-shadow:0 0 0 2px #98734e}
+.coupon.expired{opacity:.58;filter:saturate(.55)}.coupon.expired:before{background:#a8554d}
+.code-line{display:flex;justify-content:space-between;gap:12px}
+.code-title-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.new-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:4px 7px;border-radius:999px;
+  color:#fff8df;background:linear-gradient(#ef6d51,#bd3d32);
+  border:1px solid #8e2f28;font-size:10px;font-weight:1000;
+  box-shadow:0 2px 0 rgba(96,35,24,.15)
+}
+.announce-date{
+  margin:-3px 0 8px;
+  color:#927052;font-size:10px;font-weight:800
+}
+.code{color:#713b27;font:950 clamp(17px,3vw,24px)/1.2 ui-monospace,Consolas,monospace;word-break:break-all}
+.expired .code{text-decoration:line-through 3px #a34d47}.state{white-space:nowrap;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:950;background:#dcebd6;color:#486e42;border:1px solid #9bbb91}
+.expired .state{background:#ead5ce;color:#8d4843;border-color:#c5948c}.deadline{font-size:11px;font-weight:800;color:#806046;margin:6px 0 8px}
+.rewards{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}.reward{padding:5px 8px;border:1px solid #cba876;border-radius:8px;background:#f8e7c7;font-size:12px;font-weight:800;color:#66482f}
+.source-row{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin:5px 0 8px}.source-chip{font-size:10px;font-weight:900;padding:4px 7px;border-radius:999px;background:#d9c4a4;color:#67492f;border:1px solid #b69970}
+.source-chip.good{background:#d9ead3;color:#4e7648;border-color:#9bb992}.conflict{display:block;margin:6px 0 10px;padding:8px 10px;border-radius:7px;color:#85443b;background:#f1d5c7;border:1px solid #d49a86;font-size:11px;font-weight:850}
+.actions{display:flex;gap:6px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:6px 10px;border-radius:8px;border:2px solid #9a7147;color:#5b3b25;background:#f9ebce;font-size:12px;font-weight:950;cursor:pointer}
+.btn.primary{background:#bc493a;color:#fff5df;border-color:#8b3029}.btn.copy{background:#e9b447;border-color:#ae7d2e}
+.character-card{
+  align-self:start;position:sticky;top:18px;padding:18px 16px 17px;
+  border:4px solid #604333;border-radius:58px 58px 24px 24px;
+  background:
+    linear-gradient(rgba(255,255,255,.10),rgba(255,255,255,.10)),
+    repeating-linear-gradient(45deg,rgba(111,76,50,.05) 0 7px,transparent 7px 14px),
+    #d9bd93;
+  box-shadow:
+    inset 0 0 0 5px #ecd8b9,
+    inset 0 0 0 8px #9c7858,
+    0 12px 24px rgba(73,39,22,.20);
+  overflow:visible;
+}
+.character-card:before{
+  content:"";position:absolute;left:50%;top:-24px;transform:translateX(-50%) rotate(45deg);
+  width:44px;height:44px;border-radius:10px;background:#624638;border:4px solid #4c3328;
+  box-shadow:0 4px 0 rgba(255,255,255,.12) inset;
+}
+.character-card:after{
+  content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);
+  width:17px;height:17px;border-radius:50%;background:#3f2b22;border:4px solid #725140;
+  box-shadow:0 2px 0 rgba(255,255,255,.14) inset;
+}
+.card-ribbon{
+  position:relative;z-index:2;margin:10px 13px 12px;padding:9px 18px;
+  text-align:center;color:#fff0d7;font-size:20px;font-weight:950;letter-spacing:.01em;
+  background:linear-gradient(180deg,#74513a,#5b3b2b);
+  border-radius:5px;
+  box-shadow:0 4px 0 rgba(75,43,28,.18);
+}
+.card-ribbon:before,.card-ribbon:after{
+  content:"";position:absolute;top:7px;width:18px;height:calc(100% - 14px);
+  background:#6c4935;z-index:-1
+}
+.card-ribbon:before{left:-12px;clip-path:polygon(100% 0,100% 100%,0 74%,30% 50%,0 26%)}
+.card-ribbon:after{right:-12px;clip-path:polygon(0 0,0 100%,100% 74%,70% 50%,100% 26%)}
+.art-stage{
+  position:relative;margin:0 8px 14px;padding:10px 7px 8px;min-height:355px;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid #c7a67c;border-radius:16px 16px 6px 6px;
+  background:
+    radial-gradient(circle at 50% 40%,rgba(255,249,232,.95),rgba(242,221,188,.72) 54%,rgba(211,182,142,.84) 100%);
+  box-shadow:inset 0 0 0 4px rgba(255,248,228,.52);
+}
+.art-stage:before,.art-stage:after{
+  content:"✦";position:absolute;color:#fff7da;text-shadow:0 0 5px rgba(81,126,140,.28);
+  font-size:26px
+}
+.art-stage:before{left:15px;top:17px}
+.art-stage:after{right:14px;top:21px;color:#bfe9e7}
+.character-card img{
+  display:block;width:100%;height:330px;object-fit:contain;
+  filter:drop-shadow(0 7px 7px rgba(73,47,34,.20));
+}
+.art-caption{
+  margin:-2px 14px 12px;text-align:center;color:#876b50;
+  font-size:10px;font-style:italic;line-height:1.4
+}
+.wiki-table{
+  display:grid;gap:7px;margin:0 9px 10px
+}
+.wiki-row{
+  display:grid;grid-template-columns:104px 1fr;overflow:hidden;
+  border:1.5px solid #aa8965;border-radius:8px;background:#ead2ae;
+  min-height:34px
+}
+.wiki-key{
+  display:flex;align-items:center;padding:7px 9px;
+  font-weight:950;color:#604635;background:
+    repeating-linear-gradient(45deg,#c5a681 0 8px,#bea079 8px 16px);
+  border-right:1.5px solid #a78968
+}
+.wiki-value{
+  display:flex;align-items:center;padding:7px 9px;
+  color:#5d4432;font-weight:800
+}
+.sources-box{
+  margin:12px 9px 3px;padding:10px;border-radius:9px;
+  background:#ead1aa;border:1.5px solid #aa8965
+}
+.sources-box b{
+  display:block;margin-bottom:7px;text-align:center;color:#5a3e2e;font-size:13px
+}
+.source-link{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin:5px 0;padding:7px 9px;border-radius:7px;
+  color:#67492f;text-decoration:none;font-size:11px;font-weight:850;
+  background:#f1dfbd;border:1px solid #c5a374
+}
+.source-link:hover{background:#f7e8ca;border-color:#9d7650}
+.source-link span:last-child{color:#9b7651;font-size:10px}
+.pagination{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;margin-top:18px;padding-top:12px;border-top:2px solid rgba(139,98,61,.32)}.pagination.hidden{display:flex}.page-btn{min-width:38px;height:38px;border-radius:9px;border:2px solid #a47c54;background:#f7e3bd;color:#68492f;font-weight:950;cursor:pointer}
+.page-btn.active{background:#a33f34;color:white;border-color:#762c28}.page-btn:disabled{opacity:.35}.footer{margin-top:20px;border-top:3px solid #a47c54;padding-top:12px;color:#7b5b40;font-size:11px;line-height:1.6}
+@media(max-width:1150px){
+  .wiki-top{grid-template-columns:190px 1fr 210px;margin-left:20px;margin-right:20px}
+  .brand-cookie{font-size:24px}.brand-crumble{font-size:18px}
+}
+@media(max-width:850px){
+  .wiki-top{grid-template-columns:1fr 210px}
+  .brand-block{display:none}
+}
+@media(max-width:1050px){
+  .book{padding:76px 34px 42px}
+  /* 仍維持右側角色卡，不再直接掉到內容下方 */
+  .main-grid{
+    grid-template-columns:minmax(0,1fr) 245px;
+    gap:18px
+  }
+  .character-card{
+    position:sticky;
+    top:14px;
+    max-width:none;
+    margin:0
+  }
+  .character-card img{height:265px}
+  .card-ribbon{font-size:17px;margin-left:8px;margin-right:8px}
+  .wiki-row{grid-template-columns:82px 1fr;font-size:11px}
+  .source-link{font-size:10px}
+}
+@media(max-width:760px){
+  .book{padding-left:18px;padding-right:18px}
+  .main-grid{
+    grid-template-columns:minmax(0,1fr) 205px;
+    gap:12px
+  }
+  .character-card{
+    padding:13px 10px 12px;
+    border-width:3px;
+    border-radius:40px 40px 18px 18px
+  }
+  .character-card img{height:215px}
+  .art-stage{min-height:235px;margin-left:3px;margin-right:3px;padding:6px 3px}
+  .card-ribbon{font-size:15px;padding:7px 9px}
+  .wiki-table{margin-left:3px;margin-right:3px}
+  .wiki-row{grid-template-columns:68px 1fr;min-height:30px}
+  .wiki-key,.wiki-value{padding:5px 6px;font-size:10px}
+  .sources-box{margin-left:3px;margin-right:3px;padding:7px}
+  .sources-box b{font-size:11px}
+  .source-link{padding:5px 6px;font-size:9px}
+  .art-caption{font-size:8px}
+}
+@media(max-width:560px){
+  .recipe{
+    width:auto;
+    max-width:100%;
+    padding:9px 20px;
+    font-size:20px
+  }
+
+  .shell{width:min(100% - 12px,1460px);margin-top:8px}
+  .wiki-top{
+    margin:0 12px -14px;padding:15px 16px 28px;
+    grid-template-columns:1fr;gap:10px
+  }
+  .brand-block{display:none}
+  .redeem-search{max-width:260px;margin:auto;width:100%}
+  .book{padding:68px 16px 28px}
+  .stitch{left:0;right:0}
+  .rings{display:none}
+  .status-row{grid-template-columns:1fr}
+  .code-line{display:block}
+  .state{display:inline-block;margin-top:7px}
+
+  /* 真正手機才改成上下排列 */
+  .main-grid{grid-template-columns:1fr}
+  .character-card{
+    position:static;
+    width:min(330px,100%);
+    margin:18px auto 0
+  }
+  .character-card img{height:300px}
+  .art-stage{min-height:330px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="wiki-top">
+  <div class="brand-block">
+    <div class="brand-cookie">COOKIE RUN</div>
+    <div class="brand-crumble">CRUMBLE</div>
+    <div class="brand-sub">COUPON BOOK</div>
+  </div>
+
+  <div class="top-center">
+<div class="top-title">禮包碼手冊</div>
+  </div>
+
+  <a class="redeem-search" href="https://coupon.devplay.com/coupon/cc/en" target="_blank">
+    <span>🎁</span>
+    <span>前往官方兌換</span>
+    <b>↗</b>
+  </a>
+</header>
+<section class="book">
+<div class="stitch"></div>
+<div class="rings"><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+
+
+<div class="main-grid">
+<main class="content">
+<div class="recipe">RECIPE FOR：禮包碼</div>
+<div class="status-row">
+<div class="status-card"><div class="status-k">目前有效</div><div class="status-v" id="activeCount">—</div></div>
+<div class="status-card"><div class="status-k">已過期</div><div class="status-v" id="expiredCount">—</div></div>
+<div class="status-card"><div class="status-k">最後抓取</div><div class="status-v" id="updatedAt" style="font-size:13px">—</div></div>
+</div>
+<div class="filter-strip">
+<button class="pill active" data-filter="all">全部</button><button class="pill" data-filter="active">可使用</button><button class="pill" data-filter="expired">已過期</button>
+<a class="btn primary" href="https://coupon.devplay.com/coupon/cc/en" target="_blank">立即兌換</a>
+</div>
+<section id="timeline"></section>
+<nav id="pagination" class="pagination hidden"></nav>
+<div class="footer">禮包碼資料會定期更新；兌換結果與有效期限以遊戲官方實際狀態為準。</div>
+</main>
+
+<aside class="character-card">
+<div class="card-ribbon">銀河餅乾</div>
+
+<div class="art-stage">
+  <img src="assets/milky_way.png" alt="銀河餅乾">
+</div>
+<div class="art-caption">CookieRun: Crumble · Milky Way Cookie</div>
+
+<div class="wiki-table">
+  <div class="wiki-row"><div class="wiki-key">職務</div><div class="wiki-value">禮包碼乘務員</div></div>
+  <div class="wiki-row"><div class="wiki-key">更新週期</div><div class="wiki-value">每小時</div></div>
+  <div class="wiki-row"><div class="wiki-key">每頁顯示</div><div class="wiki-value">6 組禮包碼</div></div>
+</div>
+
+<div class="sources-box">
+  <b>固定監控來源</b>
+  <a class="source-link" href="https://eog.gg/games/cookierun-crumble/" target="_blank">
+    <span>EOG</span><span>攻略資料站 ↗</span>
+  </a>
+  <a class="source-link" href="https://crumblehub.co/en/coupon" target="_blank">
+    <span>Crumble Hub</span><span>Coupon Center ↗</span>
+  </a>
+</div>
+</aside>
+</div>
+</section>
+</div>
+
+<script>
+const FALLBACK={"generated_at":"2026-08-19T13:08:00+08:00","codes":[
+{"code":"COOKIERUNCRUMBLE1ST","announced":"2026-08-03","expires_at":"2026-08-25T23:59:00+09:00","expires_label":"2026/08/25 23:59 KST","rewards":["10,000 水晶","1,000 勇氣之火","1,000 星辰點數","10 個 1 小時自動狩獵硬幣"],"sources":[{"name":"EOG"},{"name":"Crumble Hub"}],"source_count":2,"expiry_conflict":false},
+{"code":"COOKIERUNCRUMBLENO1","announced":"2026-07-31","expires_at":"2026-08-31T23:59:00+09:00","expires_label":"2026/08/31 23:59 KST","rewards":["10,000 水晶","1,000 勇氣之火","1,000 幸運麵團","1,000 符文水晶"],"sources":[{"name":"EOG"},{"name":"Crumble Hub"}],"source_count":2,"expiry_conflict":true,"expiry_candidates":["EOG：2026/08/31 23:59 KST","Crumble Hub：2026/08/25 23:59 KST"]}]};
+const PAGE_SIZE=6;let DATA=FALLBACK,FILTER="all",PAGE=1;
+function dead(c){return c.expires_at&&new Date(c.expires_at)<new Date()}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+function tw(iso){try{return new Intl.DateTimeFormat("zh-TW",{timeZone:"Asia/Taipei",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(iso))}catch{return""}}
+function remain(c){if(dead(c))return"已過期";let h=Math.floor((new Date(c.expires_at)-Date.now())/3600000);return h<48?`剩 ${Math.max(0,h)} 小時`:`剩 ${Math.ceil(h/24)} 天`}
+function announcedDate(c){
+  if(!c.announced)return "";
+  const d=new Date(c.announced+"T00:00:00+08:00");
+  if(Number.isNaN(d.getTime()))return c.announced;
+  return new Intl.DateTimeFormat("zh-TW",{year:"numeric",month:"2-digit",day:"2-digit"}).format(d);
+}
+function isNew(c){
+  if(!c.announced)return false;
+  const d=new Date(c.announced+"T00:00:00+08:00");
+  if(Number.isNaN(d.getTime()))return false;
+  const age=Date.now()-d.getTime();
+  return age>=0 && age<3*24*60*60*1000;
+}
+
+function sorted(){return [...(DATA.codes||[])].sort((a,b)=>dead(a)!==dead(b)?(dead(a)?1:-1):(dead(a)?new Date(b.expires_at)-new Date(a.expires_at):new Date(a.expires_at)-new Date(b.expires_at)))}
+function list(){let a=sorted();return FILTER==="active"?a.filter(x=>!dead(x)):FILTER==="expired"?a.filter(dead):a}
+function render(){
+ let all=sorted(),act=all.filter(x=>!dead(x)),exp=all.filter(dead);activeCount.textContent=act.length+" 組";expiredCount.textContent=exp.length+" 組";updatedAt.textContent=DATA.generated_at?new Date(DATA.generated_at).toLocaleString("zh-TW"):"未知";
+ let a=list(),total=Math.max(1,Math.ceil(a.length/PAGE_SIZE));if(PAGE>total)PAGE=total;let items=a.slice((PAGE-1)*PAGE_SIZE,PAGE*PAGE_SIZE);
+ timeline.innerHTML=items.map(c=>`<article class="coupon ${dead(c)?"expired":""}">
+<div class="code-line">
+  <div class="code-title-wrap">
+    <div class="code">${esc(c.code)}</div>
+    ${isNew(c)?'<span class="new-badge">NEW</span>':""}
+  </div>
+  <span class="state">${remain(c)}</span>
+</div>
+${c.announced?`<div class="announce-date">新增：${esc(announcedDate(c))}</div>`:""}
+<div class="deadline">結束：${esc(c.expires_label||"未提供")} · 台灣 ${tw(c.expires_at)}</div>
+${c.expiry_conflict?`<div class="conflict">⚠ 兩個資料站的結束日期不同：${(c.expiry_candidates||[]).map(esc).join(" ｜ ")}</div>`:""}
+<div class="rewards">${(c.rewards||[]).map(r=>`<span class="reward">${esc(r)}</span>`).join("")}</div>
+<div class="source-row"><span class="source-chip">${c.source_count||0} 個資料站確認</span>${(c.sources||[]).map(s=>`<span class="source-chip good">${esc(s.name)}</span>`).join("")}</div>
+<div class="actions"><button class="btn copy" onclick="navigator.clipboard.writeText('${c.code}')">複製禮包碼</button><a class="btn primary" target="_blank" href="https://coupon.devplay.com/coupon/cc/en">前往兌換</a></div>
+</article>`).join("")||'<div class="quote">目前沒有資料。</div>';
+ pagination.classList.remove("hidden");
+ pagination.innerHTML=
+   `<button class="page-btn" ${PAGE===1?"disabled":""} onclick="if(PAGE>1){PAGE--;render();scrollToList()}">‹ 上一頁</button>`+
+   Array.from({length:total},(_,i)=>`<button class="page-btn ${PAGE===i+1?"active":""}" onclick="PAGE=${i+1};render();scrollToList()">${i+1}</button>`).join("")+
+   `<button class="page-btn" ${PAGE===total?"disabled":""} onclick="if(PAGE<${total}){PAGE++;render();scrollToList()}">下一頁 ›</button>`;
+}
+function scrollToList(){
+  const el=document.querySelector(".filter-strip");
+  if(el)window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.scrollY-18),behavior:"smooth"});
+}
+document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{function scrollToList(){
+  const el=document.querySelector(".filter-strip");
+  if(el)window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.scrollY-18),behavior:"smooth"});
+}
+document.querySelectorAll("[data-filter]").forEach(x=>x.classList.remove("active"));document.querySelectorAll(`[data-filter="${b.dataset.filter}"]`).forEach(x=>x.classList.add("active"));FILTER=b.dataset.filter;PAGE=1;render()});
+async function load(){try{let r=await fetch("data/codes.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw 0;DATA=await r.json()}catch{DATA=FALLBACK}render()}
+load();setInterval(load,10*60*1000);setInterval(render,60*1000);
+</script>
+</body>
+</html>
