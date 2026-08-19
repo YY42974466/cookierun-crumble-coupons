@@ -1,0 +1,71 @@
+name: 更新禮包碼並部署網站
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions 使用 UTC；每小時第 17 分檢查一次
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-and-coupon-update
+  cancel-in-progress: false
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 取得網站檔案
+        uses: actions/checkout@v4
+
+      - name: 設定 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 安裝套件
+        run: pip install -r requirements.txt
+
+      - name: 保存更新前資料
+        run: cp data/codes.json /tmp/codes_before.json
+
+      - name: 爬取 EOG 與 Crumble Hub
+        run: python scraper.py
+
+      - name: Discord 通知
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python notify_discord.py --before /tmp/codes_before.json --after data/codes.json
+
+      - name: 有資料更新才提交回 Repository
+        shell: bash
+        run: |
+          if git diff --quiet -- data/codes.json; then
+            echo "禮包碼資料沒有變化"
+          else
+            git config user.name "coupon-bot"
+            git config user.email "coupon-bot@users.noreply.github.com"
+            git add data/codes.json
+            git commit -m "自動更新禮包碼"
+            git push
+          fi
+
+      - name: 設定 GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上傳網站檔案
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: 部署 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
