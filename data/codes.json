@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T10:53:54+00:00",
+  "generated_at": "2026-08-19T18:56:00+08:00",
   "source_health": [
     {
       "name": "Official Coupon",
@@ -31,9 +31,10 @@
       "expires_at": "2026-08-25T23:59:00+09:00",
       "expires_label": "2026/08/25 23:59 KST",
       "rewards": [
-        "0,000 1",
-        "000 1,",
-        "0 1"
+        "10,000 水晶",
+        "1,000 勇氣之火",
+        "1,000 星辰點數",
+        "10 個 1 小時自動狩獵硬幣"
       ],
       "sources": [
         {
@@ -49,11 +50,13 @@
     {
       "code": "COOKIERUNCRUMBLENO1",
       "announced": "2026-07-31",
-      "expires_at": "2026-08-25T23:59:00+09:00",
-      "expires_label": "2026/08/25 23:59 KST",
+      "expires_at": "2026-08-31T23:59:00+09:00",
+      "expires_label": "2026/08/31 23:59 KST",
       "rewards": [
-        "0,000 1",
-        "000 1,"
+        "10,000 水晶",
+        "1,000 勇氣之火",
+        "1,000 幸運麵團",
+        "1,000 符文水晶"
       ],
       "sources": [
         {
@@ -64,7 +67,11 @@
         }
       ],
       "source_count": 2,
-      "expiry_conflict": false
+      "expiry_conflict": true,
+      "expiry_candidates": [
+        "EOG：2026/08/31 23:59 KST",
+        "Crumble Hub：2026/08/25 23:59 KST"
+      ]
     }
   ]
 }
