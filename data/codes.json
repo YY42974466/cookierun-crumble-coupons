@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T05:27:13+00:00",
+  "generated_at": "2026-08-28T18:47:17+00:00",
   "source_health": [
     {
       "name": "Official Coupon",
@@ -20,7 +20,7 @@
     {
       "name": "Crumble Hub",
       "status": "ok",
-      "found": 2,
+      "found": 0,
       "kind": "crawler"
     }
   ],
@@ -39,12 +39,9 @@
       "sources": [
         {
           "name": "EOG"
-        },
-        {
-          "name": "Crumble Hub"
         }
       ],
-      "source_count": 2,
+      "source_count": 1,
       "expiry_conflict": false
     },
     {
@@ -61,17 +58,10 @@
       "sources": [
         {
           "name": "EOG"
-        },
-        {
-          "name": "Crumble Hub"
         }
       ],
-      "source_count": 2,
-      "expiry_conflict": true,
-      "expiry_candidates": [
-        "EOG：2026/08/31 23:59 KST",
-        "Crumble Hub：2026/08/25 23:59 KST"
-      ]
+      "source_count": 1,
+      "expiry_conflict": false
     }
   ]
 }
