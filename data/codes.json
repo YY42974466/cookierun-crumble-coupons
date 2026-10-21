@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T18:42:22+00:00",
+  "generated_at": "2026-10-21T22:24:43+00:00",
   "source_health": [
     {
       "name": "Official Coupon",
@@ -19,8 +19,8 @@
     },
     {
       "name": "Crumble Hub",
-      "status": "error",
-      "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+      "status": "ok",
+      "found": 0,
       "kind": "crawler"
     }
   ],
